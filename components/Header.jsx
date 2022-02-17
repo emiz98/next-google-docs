@@ -1,7 +1,9 @@
-import { MenuIcon, ViewGridIcon } from '@heroicons/react/solid'
-import { SearchIcon } from '@heroicons/react/outline'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import { Menu, Apps, Search } from '@mui/icons-material'
 
 function Header() {
+  const { data: session } = useSession()
+
   return (
     <div
       className="sticky top-0 z-50 flex items-center justify-between 
@@ -9,7 +11,7 @@ function Header() {
     >
       {/* Left */}
       <div className="flex items-center">
-        <MenuIcon
+        <Menu
           className="h-8 w-8 cursor-pointer
         transition-all ease-in-out hover:text-gray-500"
         />
@@ -22,7 +24,7 @@ function Header() {
         className="mx-5 hidden flex-grow items-center rounded-lg bg-gray-100 px-5 
       py-2 text-gray-600 focus-within:text-gray-600 focus-within:shadow-md md:mx-20 md:inline-flex"
       >
-        <SearchIcon className="h-6 text-gray-500" />
+        <Search className="h-6 text-gray-500" />
         <input
           className="flex-grow bg-transparent px-5 text-base font-medium outline-none"
           type="text"
@@ -31,14 +33,29 @@ function Header() {
       </div>
 
       {/* Right */}
-      <div className="flex">
-        <ViewGridIcon className="h-15 w-15" />
-        <img
-          loading="lazy"
-          className="ml-2 h-12 w-12 cursor-pointer rounded-full"
-          src="https://avatars.githubusercontent.com/u/64089619?v=4"
-          alt=""
+      <div className="flex items-center">
+        <Apps
+          className="mr-2 h-8 cursor-pointer text-gray-600
+        transition-all ease-in-out hover:text-gray-500"
         />
+        {session ? (
+          <img
+            onClick={signOut}
+            loading="lazy"
+            className="ml-2 h-12 w-12 cursor-pointer rounded-full"
+            src={session.user.image}
+            alt=""
+          />
+        ) : (
+          <div
+            className="w-100 flex h-10 cursor-pointer items-center
+           rounded-full bg-blue-500 p-5 transition-all
+           ease-in-out hover:bg-blue-400"
+            onClick={signIn}
+          >
+            <h1 className="font-medium text-white">Sign In</h1>
+          </div>
+        )}
       </div>
     </div>
   )
