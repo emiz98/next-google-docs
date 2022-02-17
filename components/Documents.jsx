@@ -54,7 +54,7 @@ function Documents() {
               {userDoc.data().fileName}
             </p>
             <p className="mr-32 hidden pr-5 md:inline-flex">
-              {userDoc?.data().timestamp.toDate().toLocaleDateString()}
+              {userDoc?.data()?.timestamp?.toDate().toLocaleDateString()}
             </p>
             <MoreVertOutlined className="mr-3 cursor-pointer hover:text-gray-500" />
           </div>
