@@ -5,9 +5,9 @@ function WelcomeScreen() {
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  // if (status == 'unauthenticated') {
-  //   signIn()
-  // }
+  if (status == 'unauthenticated') {
+    signIn()
+  }
 
   return <div>Welcome Home</div>
 }
