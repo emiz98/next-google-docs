@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import Documents from '../components/Documents'
 import WelcomeScreen from '../components/WelcomeScreen'
+import { GetServerSideProps } from 'next'
 import { getSession, GetSessionParams, useSession } from 'next-auth/react'
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
@@ -167,13 +168,13 @@ export default function Home() {
   )
 }
 
-//Priority Delete
-export async function getServerSideProps(context: GetSessionParams | undefined) {
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
   return {
     props: {
       session
-    },
-  };
+    }, // will be passed to the page component as props
+  }
 }
