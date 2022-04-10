@@ -15,7 +15,7 @@ import {
 import { Folder, FormatListBulleted, MoreVertOutlined, SortByAlpha } from '@mui/icons-material'
 
 export default function Home() {
-  const { data: session } = useSession()
+  const { data: session,status } = useSession()
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState("")
 
@@ -30,6 +30,16 @@ export default function Home() {
     setInput('')
     setIsOpen(false)   
   }  
+
+  if(status==='loading'||status==='unauthenticated'){
+    return (<div className="">
+              <Head>
+                <title>Google Docs 1.0</title>
+                <link rel="icon" href="/docs.png" />
+              </Head>
+              <WelcomeScreen/>
+          </div>)
+  }
 
   return (
     <div className="">
